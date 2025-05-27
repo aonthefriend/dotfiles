@@ -1,20 +1,15 @@
-# Powerlevel10k Instant Prompt (carregado o mais cedo possível para velocidade)
+# Powerlevel10k Instant Prompt (mais cedo possível)
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Caminho para o Oh My Zsh
+# Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
-
-# Tema Powerlevel10k
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Carrega as configurações do Powerlevel10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Carrega o Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
+# Powerlevel10k config
+[[ -f ~/dotfiles/shell/.p10k.zsh ]] && source ~/dotfiles/shell/.p10k.zsh
 
 # command code ~/dotfiles
 alias dot='cd ~/dotfiles && code .'
