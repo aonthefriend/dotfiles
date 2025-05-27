@@ -44,3 +44,6 @@ export HYPRLAND_LOG_WLR=1
 
 # Atalho útil
 alias hyprreload='hyprctl reload'
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
