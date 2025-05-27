@@ -1,6 +1,14 @@
 source $ZSH/oh-my-zsh.sh
-X
-# dotfiles
+
+# command code ~/dotfiles
 alias dot='cd ~/dotfiles && code .'
-alias dotpush='git add . && git commit -m "feat: adiciona config de blur no Hyprland" && git push'
-alias dotcheck='git status && git diff'
+dotpush() {
+  cd ~/dotfiles || return
+  git add -u
+  git add .
+  echo "Mensagem do commit:"
+  read msg
+  git commit -m "$msg"
+  git push
+  cd - || return
+}
