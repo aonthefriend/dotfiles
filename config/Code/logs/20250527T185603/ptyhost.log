@@ -1,0 +1,1 @@
+2025-05-27 19:56:57.118 [error] Failed to set sticky bit on /tmp/aon-code-zsh: Error: ENOENT: no such file or directory, chmod '/tmp/aon-code-zsh'
