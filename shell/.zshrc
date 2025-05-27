@@ -1,5 +1,8 @@
 source $ZSH/oh-my-zsh.sh
 
+#prompt powerlevel10k
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
 # command code ~/dotfiles
 alias dot='cd ~/dotfiles && code .'
 
