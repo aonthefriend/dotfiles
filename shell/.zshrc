@@ -2,6 +2,7 @@ source $ZSH/oh-my-zsh.sh
 
 # command code ~/dotfiles
 alias dot='cd ~/dotfiles && code .'
+
 dotpush() {
   cd ~/dotfiles || return
   git add -u
