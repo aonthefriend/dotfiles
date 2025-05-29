@@ -15,12 +15,16 @@ if ! command -v stow &> /dev/null; then
   exit 1
 fi
 
-# Diretórios a serem linkados
-DIRS=("shell" "zsh" "thunar" "kitty" "hypr")
+# Diretórios que realmente existem no repositório
+DIRS=("shell" "gtk" "hypr" "kitty" "thunar")
 
 for dir in "${DIRS[@]}"; do
-  echo -e "${GREEN}[+] Linkando $dir${NC}"
-  stow -v -R -t "$HOME" "$dir"
+  if [ -d "$dir" ]; then
+    echo -e "${GREEN}[+] Linkando $dir${NC}"
+    stow -v -R -t "$HOME" "$dir"
+  else
+    echo -e "${RED}[!] Pasta '$dir' não encontrada. Ignorando...${NC}"
+  fi
 done
 
 echo -e "${GREEN}[✓] Dotfiles instalados com sucesso.${NC}"
