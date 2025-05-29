@@ -2,51 +2,28 @@
 
 set -e
 
-cd ~/dotfiles || { echo "Erro: ~/dotfiles não encontrado."; exit 1; }
+BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
+mkdir -p "$BACKUP_DIR"
 
-# Hypr
-if [ -f config/hypr/hyprland.conf ]; then
-  mkdir -p hypr/.config/hypr
-  mv config/hypr/hyprland.conf hypr/.config/hypr/
-fi
+echo "Organizando dotfiles. Backups serão salvos em: $BACKUP_DIR"
 
-# Kitty
-if [ -f config/kitty/kitty.conf ]; then
-  mkdir -p kitty/.config/kitty
-  mv config/kitty/kitty.conf kitty/.config/kitty/
-fi
+move_dotfile() {
+  src="$HOME/$1"
+  dest="$HOME/dotfiles/$2"
 
-# GTK
-if [ -d config/gtk-3.0 ]; then
-  mkdir -p gtk/.config/gtk-3.0
-  mv config/gtk-3.0/* gtk/.config/gtk-3.0/ 2>/dev/null || true
-fi
-
-# Thunar
-if [ -d Thunar ]; then
-  mkdir -p thunar/.config/Thunar
-  mv Thunar/* thunar/.config/Thunar/ 2>/dev/null || true
-fi
-
-# Zsh
-if [ -f shell/.zshrc ]; then
-  mkdir -p zsh
-  mv shell/.zshrc zsh/.zshrc
-fi
-
-# Shell (.zshrc)
-organizar_shell() {
-  if [ -f ~/.zshrc ]; then
-    mkdir -p shell
-    mv ~/.zshrc shell/.zshrc
-    echo "✅ .zshrc movido para shell/.zshrc"
+  if [ -f "$src" ] || [ -d "$src" ]; then
+    echo "Movendo $src → $dest"
+    mv "$src" "$BACKUP_DIR/"
+    mkdir -p "$(dirname "$dest")"
+    cp -r "$BACKUP_DIR/$(basename "$src")" "$dest"
   else
-    echo "⚠️  .zshrc não encontrado em ~ — pulando shell."
+    echo "Arquivo $src não encontrado, ignorando."
   fi
 }
-organizar_shell
 
-# Limpeza de pastas vazias
-rm -rf config shell Thunar
+# Exemplos (adicione outros conforme necessário)
+move_dotfile ".zshrc" "shell/.zshrc"
+move_dotfile ".config/hypr/hyprland.conf" "hypr/hyprland.conf"
+move_dotfile ".config/kitty/kitty.conf" "kitty/kitty.conf"
 
-echo "✅ Dotfiles reorganizados com segurança."
+echo "Organização concluída."

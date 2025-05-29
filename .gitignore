@@ -16,3 +16,12 @@
 # Segredos (ajuste se necessário)
 *.env
 *.secret
+
+# Ignorar arquivos de cache e temporários
+Code/Cache/
+Code/Crashpad/
+Code/Local Storage/
+Code/Network Persistent State
+Code/TransportSecurity
+*.log
+*.tmp

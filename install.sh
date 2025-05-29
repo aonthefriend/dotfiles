@@ -1,52 +1,26 @@
 #!/bin/bash
 
-echo "🚀 Iniciando instalação dos dotfiles..."
+set -e
 
-# Pasta base do repositório
-DOTFILES_DIR="$HOME/dotfiles"
+# Cores para saída legível
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NC="\033[0m"
 
-# Função: organiza os arquivos para estrutura compatível com stow
-organizar_dotfiles() {
-  echo "📁 Organizando estrutura dos dotfiles..."
+echo -e "${GREEN}[+] Iniciando instalação de dotfiles...${NC}"
 
-  mkdir -p "$DOTFILES_DIR/shell"
-  mkdir -p "$DOTFILES_DIR/config"
+# Verifica se o stow está instalado
+if ! command -v stow &> /dev/null; then
+  echo -e "${RED}[-] 'stow' não está instalado. Instale com 'sudo pacman -S stow'${NC}"
+  exit 1
+fi
 
-  # Move .zshrc se existir
-  if [ -f "$HOME/.zshrc" ]; then
-    mv "$HOME/.zshrc" "$DOTFILES_DIR/shell/.zshrc"
-    echo "✅ .zshrc movido para shell/"
-  else
-    echo "⚠️  .zshrc não encontrado em ~ — pulando shell."
-  fi
+# Diretórios a serem linkados
+DIRS=("shell" "zsh" "thunar" "kitty" "hypr")
 
-  echo "✅ Dotfiles reorganizados com segurança."
-}
+for dir in "${DIRS[@]}"; do
+  echo -e "${GREEN}[+] Linkando $dir${NC}"
+  stow -v -R -t "$HOME" "$dir"
+done
 
-# Função: aplica symlinks com stow
-criar_symlinks() {
-  echo "🔗 Criando symlinks com stow..."
-  cd "$DOTFILES_DIR" || exit 1
-
-  for pasta in gtk hypr kitty thunar shell; do
-    if [ -d "$DOTFILES_DIR/config/$pasta" ]; then
-      echo "→ stow $pasta (em config/)"
-      stow --dir=config "$pasta"
-    elif [ -d "$DOTFILES_DIR/$pasta" ]; then
-      echo "→ stow $pasta"
-      stow "$pasta"
-    else
-      echo "⏩ Pasta $pasta não existe, ignorando..."
-    fi
-  done
-
-  # Link simbólico extra (reafirmação para evitar erros)
-  mkdir -p "$HOME/.config/hypr"
-  ln -sf "$DOTFILES_DIR/config/hypr/hyprland.conf" "$HOME/.config/hypr/hyprland.conf"
-
-  echo "✅ Instalação completa!"
-}
-
-# Execução
-organizar_dotfiles
-criar_symlinks
+echo -e "${GREEN}[✓] Dotfiles instalados com sucesso.${NC}"
