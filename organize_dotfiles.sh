@@ -2,28 +2,30 @@
 
 set -e
 
-BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
-mkdir -p "$BACKUP_DIR"
+printf "\n📁 Organizando estrutura dos dotfiles...\n"
 
-echo "Organizando dotfiles. Backups serão salvos em: $BACKUP_DIR"
+# Define origem e destino
+HOME_DIR="$HOME"
+DOTFILES_DIR="$HOME_DIR/dotfiles"
 
-move_dotfile() {
-  src="$HOME/$1"
-  dest="$HOME/dotfiles/$2"
+# Função para mover arquivo, se existir
+move_file() {
+  local source_file="$1"
+  local dest_dir="$2"
+  local filename
+  filename=$(basename "$source_file")
 
-  if [ -f "$src" ] || [ -d "$src" ]; then
-    echo "Movendo $src → $dest"
-    mv "$src" "$BACKUP_DIR/"
-    mkdir -p "$(dirname "$dest")"
-    cp -r "$BACKUP_DIR/$(basename "$src")" "$dest"
+  if [[ -f "$source_file" && ! -L "$source_file" ]]; then
+    mkdir -p "$DOTFILES_DIR/$dest_dir"
+    mv "$source_file" "$DOTFILES_DIR/$dest_dir/$filename"
+    printf "✅ %s movido para %s/\n" "$filename" "$dest_dir"
   else
-    echo "Arquivo $src não encontrado, ignorando."
+    printf "⚠️  %s não encontrado em ~ — pulando %s.\n" "$filename" "$dest_dir"
   fi
 }
 
-# Exemplos (adicione outros conforme necessário)
-move_dotfile ".zshrc" "shell/.zshrc"
-move_dotfile ".config/hypr/hyprland.conf" "hypr/hyprland.conf"
-move_dotfile ".config/kitty/kitty.conf" "kitty/kitty.conf"
+# Organiza arquivos principais
+move_file "$HOME_DIR/.zshrc" "shell"
+move_file "$HOME_DIR/.p10k.zsh" "shell"
 
-echo "Organização concluída."
+printf "✅ Dotfiles reorganizados com segurança.\n"
