@@ -16,7 +16,7 @@ if ! command -v stow &> /dev/null; then
 fi
 
 # Diretórios que realmente existem no repositório
-DIRS=("shell" "gtk" "hypr" "kitty" "thunar")
+DIRS=("shell" "gtk" "kitty" "thunar")
 
 for dir in "${DIRS[@]}"; do
   if [ -d "$dir" ]; then
@@ -26,5 +26,14 @@ for dir in "${DIRS[@]}"; do
     echo -e "${RED}[!] Pasta '$dir' não encontrada. Ignorando...${NC}"
   fi
 done
+
+# Hypr deve ir para ~/.config/hypr/
+if [ -d "hypr" ]; then
+  echo -e "${GREEN}[+] Linkando hypr${NC}"
+  mkdir -p "$HOME/.config/hypr"
+  stow -v -R -t "$HOME/.config/hypr" hypr
+else
+  echo -e "${RED}[!] Pasta 'hypr' não encontrada. Ignorando...${NC}"
+fi
 
 echo -e "${GREEN}[✓] Dotfiles instalados com sucesso.${NC}"
