@@ -26,14 +26,24 @@ alias dot='cd ~/dotfiles && code .'
 # 🌀 Função para commit e push rápido
 dotpush() {
   cd ~/dotfiles || return
+
   git add -u
   git add .
-  echo "Mensagem do commit:"
+
+  echo -n "Mensagem do commit: "
   read msg
-  git commit -m "$msg"
-  git push
+
+  if [ -z "$msg" ]; then
+    echo "❌ Commit cancelado: mensagem vazia."
+    cd - || return
+    return 1
+  fi
+
+  git commit -m "$msg" && git push
+
   cd - || return
 }
+
 
 # ⚙️ Compatibilidade extra: fallback se ~/.p10k.zsh existir
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
