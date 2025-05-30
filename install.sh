@@ -31,7 +31,7 @@ done
 if [ -d "hypr" ]; then
   echo -e "${GREEN}[+] Linkando hypr${NC}"
   mkdir -p "$HOME/.config/hypr"
-  stow -v -R -t "$HOME/.config/hypr" hypr
+  stow -v -R -t "$HOME/.config" hypr
 else
   echo -e "${RED}[!] Pasta 'hypr' não encontrada. Ignorando...${NC}"
 fi
