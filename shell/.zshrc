@@ -44,6 +44,12 @@ dotpush() {
   cd - || return
 }
 
-
 # ⚙️ Compatibilidade extra: fallback se ~/.p10k.zsh existir
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# 🧩 Carregar configurações modulares do shell (se existirem)
+[[ -f ~/.config/zsh/aliases.zsh ]]   && source ~/.config/zsh/aliases.zsh
+[[ -f ~/.config/zsh/env.zsh ]]       && source ~/.config/zsh/env.zsh
+[[ -f ~/.config/zsh/exports.zsh ]]   && source ~/.config/zsh/exports.zsh
+[[ -f ~/.config/zsh/functions.zsh ]] && source ~/.config/zsh/functions.zsh
+[[ -f ~/.config/zsh/path.zsh ]]      && source ~/.config/zsh/path.zsh
