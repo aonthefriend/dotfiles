@@ -44,44 +44,6 @@ dotpush() {
   cd - || return
 }
 
-setupwallpaper() {
-  local CONF="$HOME/.config/hypr/hyprland.conf"
-  local BACKUP="$HOME/.config/hypr/hyprland.conf.bak"
-
-  echo "Instalando hyprpaper..."
-  sudo pacman -S --noconfirm hyprpaper
-
-  echo "Digite o caminho completo para o seu wallpaper (ex: /home/usuario/Pictures/wallpaper.jpg):"
-  read WALLPAPER
-
-  if [ ! -f "$WALLPAPER" ]; then
-    echo "Arquivo não encontrado: $WALLPAPER"
-    return 1
-  fi
-
-  echo "Testando wallpaper..."
-  hyprpaper --output "*" --image "$WALLPAPER" &
-  sleep 2
-
-  cp "$CONF" "$BACKUP"
-  echo "Backup do hyprland.conf salvo em $BACKUP"
-
-  # Remove linhas existentes com hyprpaper
-  sed -i '/exec-once = hyprpaper/d' "$CONF"
-
-  # Insere depois da última exec-once
-  local LAST_EXEC_ONCE_LINE
-  LAST_EXEC_ONCE_LINE=$(grep -n '^exec-once' "$CONF" | tail -1 | cut -d: -f1)
-
-  if [ -z "$LAST_EXEC_ONCE_LINE" ]; then
-    echo "exec-once = hyprpaper --output \"*\" --image \"$WALLPAPER\"" >> "$CONF"
-  else
-    sed -i "${LAST_EXEC_ONCE_LINE}a exec-once = hyprpaper --output \"*\" --image \"$WALLPAPER\"" "$CONF"
-  fi
-
-  echo "Configuração atualizada! Por favor, reinicie o Hyprland para aplicar."
-}
-
 # ⚙️ Compatibilidade extra: fallback se ~/.p10k.zsh existir
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
