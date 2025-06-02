@@ -44,7 +44,7 @@ if ! command -v stow &> /dev/null; then
 fi
 
 # Diretórios que realmente existem no repositório
-DIRS=("shell" "gtk" "kitty" "thunar")
+DIRS=("shell" "gtk" "kitty" "thunar" "waybar")
 
 for dir in "${DIRS[@]}"; do
   if [ -d "$dir" ]; then
@@ -62,6 +62,10 @@ for dir in "${DIRS[@]}"; do
       thunar)
         backup_config_file "Thunar/uca.xml"
         backup_config_file "Thunar/accels.scm"
+        ;;
+      waybar)
+        backup_config_file "waybar/style.css"
+        backup_config_file "waybar/config.jsonc"
         ;;
     esac
 
