@@ -81,4 +81,15 @@ else
   echo -e "${RED}[!] Pasta 'hypr' não encontrada. Ignorando...${NC}"
 fi
 
+# Waybar deve ir para ~/.config/waybar/
+if [ -d "waybar" ]; then
+  echo -e "${GREEN}[+] Linkando waybar${NC}"
+  mkdir -p "$HOME/.config/waybar"
+  backup_config_file "waybar/style.css"
+  stow -v -R -t "$HOME/.config" waybar
+else
+  echo -e "${RED}[!] Pasta 'waybar' não encontrada. Ignorando...${NC}"
+fi
+
 echo -e "${GREEN}[✓] Dotfiles instalados com sucesso.${NC}"
+

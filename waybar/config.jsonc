@@ -1,0 +1,46 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 30,
+  "modules-left": ["workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["bluetooth", "network", "volume", "battery"],
+  "font": "FiraCode Nerd Font 10",
+
+  "workspaces": {
+    "format": "{name}",
+    "on-click": "activate"
+  },
+
+  "clock": {
+    "format": " {:%H:%M}",
+    "tooltip-format": "{:%A, %d de %B de %Y}",
+    "on-click": "gnome-calendar"
+  },
+
+  "volume": {
+    "format": " {volume}%",
+    "format-muted": " Muted",
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": " Desconectado",
+    "on-click": "alacritty -e nmtui"
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "format-charging": " {capacity}%"
+  },
+
+  "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "tooltip": true,
+    "on-click": "blueman-manager"
+  }
+}
