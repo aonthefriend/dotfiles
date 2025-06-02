@@ -1,0 +1,48 @@
+{
+  // Configuração principal da Waybar
+  "layer": "top",
+  "position": "bottom",
+  "height": 30,
+  "modules-left": [ "hyprland/workspaces" ],
+  "modules-center": [ ],
+  "modules-right": [
+    "bluetooth",
+    "network",
+    "battery",
+    "volume",
+    "clock"
+  ],
+
+  "hyprland/workspaces": {
+    "on-click": "activate"
+  },
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "{:%A, %d de %B de %Y}"
+  },
+
+  "volume": {
+    "format": " {volume}%",
+    "format-muted": " mute",
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": " sem rede"
+  },
+
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": [ "", "", "", "", "" ],
+    "tooltip": true
+  },
+
+  "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "tooltip": true
+  }
+}

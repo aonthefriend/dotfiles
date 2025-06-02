@@ -1,0 +1,29 @@
+* {
+  font-family: "FiraCode Nerd Font";
+  font-size: 13px;
+  color: #ffffff;
+  background: transparent;
+}
+
+window#waybar {
+  background-color: #000000;
+  border-top: none;
+  border-bottom: none;
+}
+
+#workspaces button {
+  padding: 0 10px;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+}
+
+#workspaces button.active {
+  background-color: #44475a;
+  border-radius: 6px;
+}
+
+#clock, #battery, #volume, #network, #bluetooth {
+  padding: 0 12px;
+  background: transparent;
+}
