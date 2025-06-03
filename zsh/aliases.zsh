@@ -1,0 +1,8 @@
+# Aliases úteis
+alias ls='ls --color=auto'
+alias la='ls -la'
+alias grep='grep --color=auto'
+alias cls='clear'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias dot='code ~/dotfiles'

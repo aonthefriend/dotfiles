@@ -1,0 +1,11 @@
+# Configuração principal do Wofi
+
+show=drun
+term=kitty
+insensitive=true
+allow_images=false
+prompt=
+hide_scroll=true
+width=30%
+lines=10
+location=center
