@@ -42,4 +42,30 @@ dotpush() {
   git push
 }
 
+# Função para descompactar arquivos ZIP
+descompact() {
+  if [[ -z "$1" ]]; then
+    echo "Uso: descompact caminho/para/arquivo.zip"
+    return 1
+  fi
+
+  local ZIP_PATH="$1"
+
+  if [[ ! -f "$ZIP_PATH" ]]; then
+    echo "Erro: arquivo '$ZIP_PATH' não encontrado."
+    return 2
+  fi
+
+  local BASENAME
+  BASENAME=$(basename "$ZIP_PATH" .zip)
+  local DIRNAME
+  DIRNAME=$(dirname "$ZIP_PATH")
+  local DEST_DIR="${DIRNAME}/${BASENAME}"
+
+  mkdir -p "$DEST_DIR"
+
+  unzip -o "$ZIP_PATH" -d "$DEST_DIR"
+
+  echo "✅ Arquivo extraído em: $DEST_DIR"
+}
 
