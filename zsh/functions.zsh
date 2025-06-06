@@ -69,3 +69,27 @@ descompact() {
   echo "✅ Arquivo extraído em: $DEST_DIR"
 }
 
+# Função para compactar arquivos ou pastas em ZIP
+compact() {
+  if [[ -z "$1" ]]; then
+    echo "Uso: compact caminho/para/arquivo_ou_pasta"
+    return 1
+  fi
+
+  local TARGET_PATH="$1"
+
+  if [[ ! -e "$TARGET_PATH" ]]; then
+    echo "Erro: '$TARGET_PATH' não existe."
+    return 2
+  fi
+
+  local DIRNAME
+  DIRNAME=$(dirname "$TARGET_PATH")
+  local BASENAME
+  BASENAME=$(basename "$TARGET_PATH")
+  local OUTPUT="${DIRNAME}/${BASENAME}.zip"
+
+  zip -r "$OUTPUT" "$TARGET_PATH"
+
+  echo "✅ Arquivo compactado em: $OUTPUT"
+}
