@@ -42,6 +42,20 @@ dotpush() {
   git push
 }
 
+# Função para git commit e push com mensagem para o curso CWI
+CWIpush() {
+  echo -n "Mensagem do commit: "
+  read msg
+  if [ -z "$msg" ]; then
+    echo "❌ Commit cancelado (mensagem vazia)."
+    return 1
+  fi
+
+  git add .
+  git commit -m "$msg" && git push && echo "✅ Commit e push feitos com sucesso!"
+}
+
+
 # Função para descompactar arquivos ZIP
 descompact() {
   if [[ -z "$1" ]]; then
