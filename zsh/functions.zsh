@@ -22,7 +22,7 @@ extract() {
   fi
 }
 
-# Função para abrir o diretório de dotfiles
+# Função para git push com mensagem de commit
 dotpush() {
   echo "📦 Indo para: $(pwd)"
   echo "📄 Status do repositório:"
