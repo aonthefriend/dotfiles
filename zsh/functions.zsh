@@ -42,6 +42,23 @@ dotpush() {
   git push
 }
 
+# Função para git push com mensagem de commit específica para o projeto OlaMundo
+cwipush() {
+  cd ~/IdeaProjects/OlaMundo || return
+  echo -n "Mensagem do commit: "
+  read msg
+
+  if [ -z "$msg" ]; then
+    echo "❌ Commit cancelado (mensagem vazia)."
+    return 1
+  fi
+
+  git add .
+  git commit -m "$msg"
+  git push
+}
+
+
 # Função para descompactar arquivos ZIP
 descompact() {
   if [[ -z "$1" ]]; then
