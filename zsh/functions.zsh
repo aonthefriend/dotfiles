@@ -107,3 +107,40 @@ compact() {
 
   echo "✅ Arquivo compactado em: $OUTPUT"
 }
+
+# Função para listar arquivos e diretórios com detalhes
+listfiles() {
+  if [[ -z "$1" ]]; then
+    echo "Uso: list_files caminho/para/diretorio"
+    return 1
+  fi
+
+  local DIR="$1"
+
+  if [[ ! -d "$DIR" ]]; then
+    echo "Erro: '$DIR' não é um diretório válido."
+    return 2
+  fi
+
+  echo "Listando arquivos em: $DIR"
+  ls -lh "$DIR"
+}
+
+# Função para verificar o status do sistema
+systemstatus() {
+  echo "🔍 Verificando status do sistema..."
+  echo "📦 Uso de disco:"
+  df -h
+
+  echo ""
+  echo "🧠 Uso de memória:"
+  free -h
+
+  echo ""
+  echo "🔌 Conexões de rede:"
+  netstat -tuln
+
+  echo ""
+  echo "📂 Arquivos abertos:"
+  lsof | head -n 10
+}
