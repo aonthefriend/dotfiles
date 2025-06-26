@@ -8,7 +8,7 @@ selected=$(echo -e "$options" | wofi --show dmenu --prompt "Power Menu" --width 
 
 case $selected in
     "🔒 Lock")
-        exec swaylock
+        ~/dotfiles/scripts/lock.sh &
         ;;
     "🔄 Reboot")
         systemctl reboot
